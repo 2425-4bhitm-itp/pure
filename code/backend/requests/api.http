@@ -1,0 +1,6 @@
+@BASE_URL=http://localhost:8080/api
+
+GET {{BASE_URL}}/persons
+###
+GET {{BASE_URL}}/schools
+###

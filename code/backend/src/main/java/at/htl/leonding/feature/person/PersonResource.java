@@ -2,8 +2,6 @@ package at.htl.leonding.feature.person;
 
 import java.util.List;
 
-import io.quarkus.hibernate.orm.panache.PanacheRepository;
-import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
@@ -15,7 +13,8 @@ import jakarta.ws.rs.core.MediaType;
 public class PersonResource {
     @Inject
     PersonRepository personRepository;
-    @Inject PersonMapper personMapper;
+    @Inject
+    PersonMapper personMapper;
 
     @GET
     public List<Person> all() {
@@ -23,18 +22,10 @@ public class PersonResource {
             .findAll()
             .list()
             .stream()
-            .map(personMapper::personEntityToPerson)
+            .map(personMapper::toResource)
             .toList();
         return persons;
     }
 }
 
-@ApplicationScoped
-class PersonRepository implements PanacheRepository<PersonEntity> {
-}
-@ApplicationScoped
-class PersonMapper {
-    Person personEntityToPerson(PersonEntity person) {
-        return new Person(person.id, person.firstname, person.lastname);
-    }
-}
+
