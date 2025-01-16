@@ -5,20 +5,18 @@ import { store } from "./features/todo/model"
 start()
 
 store.subscribe(model => {
-    //console.log("Anzahl Todos: ", model.todos.length)
+    console.log("demo subscription... # of ToDos: ", model.todos.length)
 })
 
 async function start() {
     const body = document.querySelector("body")
-    store.subscribe(model => {
-        console.log("model changed", model)
-        render(body, model.todos)
-    })
+    store.subscribe(model => render(body, model.todos))
     store.value.todos = await loadAllToDos()
-    demo()
+    startDemo()
 }
 
 function render(base: HTMLElement, todos: ToDo[]) {
+    console.log(`render ${todos.length} todos`)
     const div = document.createElement("div")
 
     function createRow(toDo: ToDo) {
@@ -35,22 +33,21 @@ function render(base: HTMLElement, todos: ToDo[]) {
 }
 
 /** play around with changes */
-function demo() {
+function startDemo() {
     setInterval(() => {
         const model = store.value
         const todos = model.todos
         const index = Math.floor(todos.length * Math.random()) % 10
         if (todos.length > index) {
-            console.log("index", index)
+
             const todo = todos[index]
             const changedTodo = {...todo, completed: !todo.completed}
             const changedTodos = [...todos]
             changedTodos[index] = changedTodo
             store.value.todos = changedTodos
-            console.log("changed", index, changedTodo)
+            console.log("todo changed", changedTodo)
         } else {
             console.log("?!")
         }
-    }, 500)    
-
+    }, 1000)    
 }

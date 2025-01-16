@@ -1,5 +1,5 @@
 import { ToDo } from "./todo"
-import { Observable } from "../observable"
+import { Observable } from "../../lib/observable"
 
 interface Model {
     todos: ToDo[]
