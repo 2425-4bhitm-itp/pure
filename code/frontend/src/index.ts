@@ -2,7 +2,7 @@ import { ToDo } from "./features/todo/todo"
 import { loadAllToDos } from "./features/todo/todo-service"
 import { store } from "./features/todo/model"
 
-start()
+window.addEventListener("DOMContentLoaded", start)
 
 // demo: a first subscription
 store.subscribe(model => console.log("demo subscription... # of ToDos: ", model.todos.length))
